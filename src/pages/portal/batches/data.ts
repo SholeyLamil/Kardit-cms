@@ -1,0 +1,105 @@
+export type BatchStep = {
+  num: number
+  id: 'browse' | 'upload' | 'validate' | 'submit' | 'approve' | 'process' | 'results'
+  label: string
+  actor: 'Maker' | 'Checker'
+  path: string
+}
+
+export const STEPS: BatchStep[] = [
+  { num: 1, id: 'browse',   label: 'Browse batches',    actor: 'Maker',   path: '/portal/batches' },
+  { num: 2, id: 'upload',   label: 'Upload batch file', actor: 'Maker',   path: '/portal/batches/upload' },
+  { num: 3, id: 'validate', label: 'Validation',        actor: 'Maker',   path: '/portal/batches/validation' },
+  { num: 4, id: 'submit',   label: 'Submit',            actor: 'Maker',   path: '/portal/batches/submit' },
+  { num: 5, id: 'approve',  label: 'Approval',          actor: 'Checker', path: '/portal/batches/approval' },
+  { num: 6, id: 'process',  label: 'Processing',        actor: 'Maker',   path: '/portal/batches/processing' },
+  { num: 7, id: 'results',  label: 'Results',           actor: 'Maker',   path: '/portal/batches/result' },
+]
+
+export type BatchStatus = 'PROCESSING' | 'PARTIAL' | 'COMPLETED' | 'FAILED' | 'PENDING'
+
+export type BatchRow = {
+  id: string
+  file: string
+  product: string
+  submitted: string
+  maker: string
+  rows: number
+  status: BatchStatus
+}
+
+export const RECENT_BATCHES: BatchRow[] = [
+  { id: 'BATCH-2026-00021', file: 'lagos_branch_onboarding_w18.csv', product: 'Verve Prepaid Standard',   submitted: '2026-05-06 10:14', maker: 'Adaeze Okafor',  rows: 247, status: 'PROCESSING' },
+  { id: 'BATCH-2026-00020', file: 'ph_branch_onboarding_w18.csv',    product: 'Verve Prepaid Standard',   submitted: '2026-05-05 16:42', maker: 'Tunde Bakare',   rows: 184, status: 'PARTIAL' },
+  { id: 'BATCH-2026-00019', file: 'abuja_civil_servants_apr.xlsx',   product: 'Mastercard Virtual Lite',  submitted: '2026-05-05 09:08', maker: 'Adaeze Okafor',  rows: 412, status: 'COMPLETED' },
+  { id: 'BATCH-2026-00018', file: 'ikeja_corp_payroll_apr.csv',      product: 'Verve Prepaid Standard',   submitted: '2026-05-04 14:55', maker: 'Chiamaka Eze',   rows:  96, status: 'COMPLETED' },
+  { id: 'BATCH-2026-00017', file: 'lagos_branch_onboarding_w17.csv', product: 'Verve Prepaid Standard',   submitted: '2026-05-04 11:23', maker: 'Adaeze Okafor',  rows: 312, status: 'COMPLETED' },
+  { id: 'BATCH-2026-00016', file: 'test_batch_pls_ignore.csv',       product: 'Mastercard Virtual Lite',  submitted: '2026-05-03 17:48', maker: 'Olumide Adeyemi', rows: 12, status: 'FAILED' },
+  { id: 'BATCH-2026-00015', file: 'ph_branch_onboarding_w17.csv',    product: 'Verve Prepaid Standard',   submitted: '2026-05-03 10:30', maker: 'Tunde Bakare',   rows: 201, status: 'COMPLETED' },
+]
+
+export type ValidationError = {
+  row: string
+  customer: string
+  code: 'MISSING_REQUIRED_FIELD' | 'INVALID_FORMAT' | 'DUPLICATE_VALUE' | 'INVALID_PRODUCT_MAPPING'
+  detail: string
+}
+
+export const VALIDATION_ERRORS: ValidationError[] = [
+  { row: '#14',  customer: '—',                code: 'MISSING_REQUIRED_FIELD', detail: 'dateOfBirth is required' },
+  { row: '#27',  customer: 'Ngozi Anyanwu',    code: 'INVALID_FORMAT',         detail: 'BVN must be 11 digits' },
+  { row: '#33',  customer: 'Emeka Nwosu',      code: 'DUPLICATE_VALUE',        detail: 'Phone number duplicates row 31' },
+  { row: '#67',  customer: 'Folake Adesanya',  code: 'INVALID_PRODUCT_MAPPING', detail: 'Product not available within affiliate scope' },
+  { row: '#91',  customer: 'Ifeanyi Okoro',    code: 'MISSING_REQUIRED_FIELD', detail: 'address.lga is required' },
+  { row: '#142', customer: 'Sade Williams',    code: 'INVALID_FORMAT',         detail: 'Phone must be E.164 format' },
+  { row: '#198', customer: 'Babatunde Lawal',  code: 'DUPLICATE_VALUE',        detail: 'BVN already exists in customer master' },
+  { row: '#223', customer: 'Aisha Mohammed',   code: 'MISSING_REQUIRED_FIELD', detail: 'dateOfBirth is required' },
+]
+
+export type ApprovalItem = {
+  id: string
+  file: string
+  rows: number
+  maker: string
+  submittedAt: string
+  product: string
+  note: string
+}
+
+export const APPROVAL_QUEUE: ApprovalItem[] = [
+  { id: 'BATCH-2026-00022', file: 'vi_branch_onboarding_w18.csv', rows: 178, maker: 'Tunde Bakare',   submittedAt: '2026-05-06 11:02', product: 'Verve Prepaid Standard', note: 'VI branch onboarding for week 18. Standard batch — no special handling needed.' },
+  { id: 'BATCH-2026-00023', file: 'lekki_corp_apr.xlsx',         rows:  64, maker: 'Chiamaka Eze',   submittedAt: '2026-05-06 10:48', product: 'Mastercard Virtual Lite', note: 'Lekki corporate batch.' },
+  { id: 'BATCH-2026-00024', file: 'ikoyi_branch_apr.csv',        rows:  92, maker: 'Adaeze Okafor',  submittedAt: '2026-05-06 10:30', product: 'Verve Prepaid Standard', note: 'Ikoyi branch onboarding.' },
+]
+
+export const PROCESSING_ACTIVITY = [
+  { row: '#224', customer: 'Kemi Adesina',  custId: 'CUST-2026-00318', cardId: 'CARD-2026-00872', status: 'success' as const,    label: 'Processed' },
+  { row: '#225', customer: 'Chinedu Okeke', custId: 'CUST-2026-00319', cardId: 'CARD-2026-00873', status: 'success' as const,    label: 'Processed' },
+  { row: '#226', customer: 'Yetunde Bello', custId: 'CUST-2026-00320', cardId: 'CARD-2026-00874', status: 'success' as const,    label: 'Processed' },
+  { row: '#227', customer: 'Obinna Eze',    custId: '—',               cardId: '—',               status: 'failed' as const,     label: 'Failed' },
+  { row: '#228', customer: 'Hauwa Yusuf',   custId: 'CUST-2026-00321', cardId: '—',               status: 'processing' as const, label: 'Processing' },
+]
+
+export const RESULT_RECORDS = [
+  { row: '#243', customer: 'Kemi Adesina',       custId: 'CUST-2026-00340', cardId: 'CARD-2026-00890' },
+  { row: '#244', customer: 'Chinedu Okeke',      custId: 'CUST-2026-00341', cardId: 'CARD-2026-00891' },
+  { row: '#245', customer: 'Yetunde Bello',      custId: 'CUST-2026-00342', cardId: 'CARD-2026-00892' },
+  { row: '#246', customer: 'Damilola Ogunbiyi',  custId: 'CUST-2026-00343', cardId: 'CARD-2026-00893' },
+  { row: '#247', customer: 'Ifeoma Nnamdi',      custId: 'CUST-2026-00344', cardId: 'CARD-2026-00894' },
+]
+
+export const FAILURE_CLUSTERS = [
+  { count: 2, code: 'CMS_PROVIDER_TIMEOUT', desc: 'Issuing bank CMS unreachable. Retry safe.' },
+  { count: 1, code: 'DUPLICATE_CUSTOMER',   desc: 'BVN already linked to existing customer record. Manual review needed.' },
+  { count: 1, code: 'CARD_PRINTING_QUOTA',  desc: 'Daily card creation quota exceeded for product. Retry tomorrow.' },
+]
+
+export const BADGE_LABELS: Record<BatchStatus, string> = {
+  PROCESSING: 'PROCESSING',
+  PARTIAL: 'PARTIAL',
+  COMPLETED: 'COMPLETED',
+  FAILED: 'FAILED',
+  PENDING: 'PENDING',
+}
+
+export const CURRENT_BATCH_ID = 'BATCH-2026-00021'
