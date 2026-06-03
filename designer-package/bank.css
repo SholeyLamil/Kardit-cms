@@ -1,0 +1,139 @@
+/* tokens are imported globally via main.tsx */
+
+/* UJR023 — Bank portfolio (different actor: Issuing Bank) */
+
+.crumb-faint { color: var(--cs-ink-100); font-weight: 600; }
+
+.side-link.is-disabled {
+  color: var(--cs-ink-100);
+  cursor: not-allowed;
+}
+.side-link.is-disabled:hover { background: transparent; color: var(--cs-ink-100); }
+.side-soon {
+  margin-left: auto;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--cs-ink-100);
+  background: var(--cs-mist);
+  padding: 2px 6px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  border: 1px solid var(--cs-line);
+}
+
+.persona-banner {
+  background: #FFF6DD;
+  border: 1px solid #F2DC9E;
+  border-radius: var(--cs-radius-md);
+  padding: 12px 16px;
+  margin-bottom: 22px;
+  display: flex; align-items: center; gap: 12px;
+}
+.persona-banner .icn {
+  width: 32px; height: 32px;
+  background: #7A5800; color: #fff;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  flex-shrink: 0;
+}
+.persona-banner .icn svg { width: 14px; height: 14px; }
+.persona-banner .title { font-size: 13px; font-weight: 700; color: #5C4200; }
+.persona-banner .sub { font-size: 11.5px; color: #7A5800; margin-top: 1px; }
+.persona-banner .switch {
+  font-size: 12px; font-weight: 700;
+  color: var(--cs-green-700);
+  text-decoration: none;
+  margin-left: auto;
+}
+
+.bank-hero {
+  background: var(--cs-white);
+  border: 1px solid var(--cs-line);
+  border-radius: var(--cs-radius-lg);
+  padding: 22px 24px;
+  display: flex; align-items: center; gap: 18px;
+  box-shadow: var(--cs-shadow-xs);
+  margin-bottom: 18px;
+}
+.bank-logo {
+  width: 64px; height: 64px;
+  border-radius: var(--cs-radius-md);
+  background: #B82926;
+  color: #fff;
+  display: grid; place-items: center;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+.bank-name {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--cs-ink-900);
+}
+.bank-meta {
+  font-size: 12.5px;
+  color: var(--cs-ink-200);
+  margin-top: 4px;
+}
+.bank-meta .pill {
+  display: inline-flex;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: var(--cs-green-100);
+  color: var(--cs-green-900);
+  border: 1px solid var(--cs-green-300);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-left: 6px;
+}
+
+.aff-table {
+  background: var(--cs-white);
+  border: 1px solid var(--cs-line);
+  border-radius: var(--cs-radius-lg);
+  overflow: hidden;
+}
+.aff-table table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.aff-table thead tr { background: var(--cs-paper); border-bottom: 1px solid var(--cs-line); }
+.aff-table th {
+  text-align: left;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--cs-ink-100);
+  padding: 12px 16px;
+}
+.aff-table th.right { text-align: right; }
+.aff-table td { padding: 14px 16px; border-bottom: 1px solid var(--cs-line); color: var(--cs-ink-700); vertical-align: middle; }
+.aff-table tbody tr:last-child td { border-bottom: none; }
+.aff-table .aff-name { font-weight: 700; color: var(--cs-ink-900); }
+.aff-table .aff-sub { font-size: 11px; color: var(--cs-ink-100); margin-top: 2px; }
+.aff-table .right { text-align: right; }
+.aff-table .num { font-family: var(--font-mono); font-weight: 600; }
+
+/* Health pill variants used by the bank table (lowercase suffix) */
+.kyc-pill.l2 { background: var(--cs-green-100); color: var(--cs-green-900); border-color: var(--cs-green-300); }
+.kyc-pill.l1 { background: #FFF6DD; color: #7A5800; border-color: #F2DC9E; }
+.kyc-pill.l0 { background: var(--cs-mist); color: var(--cs-ink-200); border-color: var(--cs-line); }
+
+.row-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 5px 10px;
+  border-radius: var(--cs-radius-sm);
+  border: 1px solid var(--cs-line-strong);
+  background: var(--cs-white);
+  color: var(--cs-green-700);
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 120ms ease;
+}
+.row-btn:hover { background: var(--cs-green-100); border-color: var(--cs-green-300); }
+.row-btn svg { width: 12px; height: 12px; }

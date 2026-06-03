@@ -1,0 +1,4 @@
+/* Project-specific overrides on top of the ported CSS. Keep minimal. */
+body { margin: 0; font-family: var(--cs-font-body); color: var(--cs-fg); background: var(--cs-bg); -webkit-font-smoothing: antialiased; }
+#root { min-height: 100vh; display: flex; flex-direction: column; }
+a { color: inherit; }

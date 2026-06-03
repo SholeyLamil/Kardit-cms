@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kardit Design System - Designer Package</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #1b9d57;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 16px;
+        }
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .card h3 {
+            color: #1b9d57;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+        .card p {
+            color: #666;
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+        .files {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+        .file-item {
+            background: #f9f9f9;
+            padding: 12px;
+            border-radius: 6px;
+            border-left: 3px solid #1b9d57;
+            font-family: monospace;
+            font-size: 13px;
+            color: #333;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        .btn {
+            display: inline-block;
+            background: #1b9d57;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin-top: 12px;
+            transition: background 150ms;
+        }
+        .btn:hover {
+            background: #0d5130;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Kardit Design System</h1>
+        <p class="subtitle">Complete Designer Package for Redesign</p>
+
+        <div class="section">
+            <div class="card">
+                <h3>📱 View Complete Website</h3>
+                <p>Click the button below to open the fully interactive website with all marketing pages, sign in, and dashboard screens.</p>
+                <a href="kardit-complete-website.html" class="btn">Open Website</a>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="card">
+                <h3>📄 Documentation Files</h3>
+                <p>Read these files for complete page and component references:</p>
+                <div class="files">
+                    <div class="file-item">README.md</div>
+                    <div class="file-item">PAGES-REFERENCE.md</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="card">
+                <h3>🎨 Design System Files</h3>
+                <p>These CSS files contain all design tokens and component styles:</p>
+                <div class="files">
+                    <div class="file-item">tokens.css</div>
+                    <div class="file-item">site.css</div>
+                    <div class="file-item">animations.css</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="card">
+                <h3>🏢 Regulatory Assets</h3>
+                <p>Logo files for regulatory partners and integrations:</p>
+                <div class="files">
+                    <div class="file-item">unionpay-logo.svg</div>
+                    <div class="file-item">cbn-logo.png</div>
+                    <div class="file-item">wema-bank-logo.svg</div>
+                    <div class="file-item">providus-bank-logo.svg</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="card">
+                <h3>📋 Pages Included</h3>
+                <ul style="margin-left: 20px; color: #666; line-height: 1.8;">
+                    <li><strong>Marketing Site</strong>: Home, About, Solutions, Partners, Industries</li>
+                    <li><strong>Authentication</strong>: Sign In, Sign Up</li>
+                    <li><strong>Portal/Dashboard</strong>: Dashboard, Batch Processing, Customers, Cards, Reports</li>
+                    <li><strong>Forms</strong>: Contact, Enrollment, Account Management</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="card" style="background: #f0f7f3; border-left: 3px solid #1b9d57;">
+                <h3>✨ Quick Start for Designers</h3>
+                <ol style="margin-left: 20px; color: #333; line-height: 1.8;">
+                    <li>Double-click <strong>kardit-complete-website.html</strong> to view all pages</li>
+                    <li>Use header navigation to move between pages</li>
+                    <li>Review <strong>tokens.css</strong> for color, typography, and spacing system</li>
+                    <li>Check <strong>site.css</strong> for component styles</li>
+                    <li>See <strong>PAGES-REFERENCE.md</strong> for detailed page descriptions</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

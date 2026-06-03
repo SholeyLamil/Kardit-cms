@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kardit - African Trade Payment Infrastructure</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            color: #0f1e12;
+            background: #f9faf9;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            overflow-x: hidden;
+        }
+
+        :root {
+            --cs-green-700: #1b9d57;
+            --cs-green-900: #0d5130;
+            --cs-red-700: #c83a46;
+            --cs-ink-700: #3d6b4f;
+            --cs-ink-900: #0f1e12;
+            --cs-line: #e0e4df;
+            --cs-line-strong: #cbd2c4;
+            --cs-mist: #f2f5f1;
+            --cs-bg: #f9faf9;
+            --cs-shadow-xs: 0 1px 2px rgba(15, 30, 18, 0.05);
+            --cs-shadow-sm: 0 2px 6px rgba(15, 30, 18, 0.10), 0 1px 2px rgba(15, 30, 18, 0.04);
+            --cs-shadow-md: 0 6px 16px rgba(15, 30, 18, 0.12), 0 2px 4px rgba(15, 30, 18, 0.06);
+        }
+
+        /* Header */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 60;
+            height: 72px;
+            background: rgba(255, 255, 255, 0.65);
+            border-bottom: 1px solid transparent;
+            transition: background 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: background, border-color;
+        }
+        
+        .site-header.is-scrolled {
+            background: rgba(255, 255, 255, 0.92);
+            border-bottom-color: var(--cs-line);
+            box-shadow: var(--cs-shadow-xs);
+        }
+
+        .site-header__inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+        }
+
+        .site-header__logo {
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 18px;
+            color: var(--cs-ink-900);
+        }
+
+        .logo-mark__i { color: var(--cs-green-700); }
+
+        .site-header__nav {
+            display: flex;
+            gap: 32px;
+        }
+
+        .site-header__nav a {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--cs-ink-700);
+            text-decoration: none;
+            transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .site-header__nav a:hover {
+            color: var(--cs-green-700);
+        }
+
+        .site-header__cta {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            padding: 14px 22px;
+            border-radius: 10px;
+            border: 1.5px solid transparent;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 150ms cubic-bezier(0.4, 0, 0.2, 1),
+                        color 150ms cubic-bezier(0.4, 0, 0.2, 1),
+                        box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn--primary {
+            background: var(--cs-green-700);
+            color: #fff;
+            box-shadow: var(--cs-shadow-sm);
+        }
+
+        .btn--primary:hover {
+            background: var(--cs-green-900);
+            box-shadow: var(--cs-shadow-md);
+        }
+
+        .btn--accent {
+            background: var(--cs-red-700);
+            color: #fff;
+            box-shadow: 0 2px 6px rgba(200,36,44,0.15);
+        }
+
+        .btn--accent:hover {
+            background: #b82a35;
+            box-shadow: var(--cs-shadow-md);
+        }
+
+        .btn--ghost {
+            background: #fff;
+            color: var(--cs-ink-700);
+            border-color: var(--cs-line-strong);
+        }
+
+        .btn--ghost:hover {
+            border-color: var(--cs-ink-700);
+            background: var(--cs-mist);
+        }
+
+        .btn--small {
+            padding: 10px 16px;
+            font-size: 14px;
+        }
+
+        .signin {
+            background: none;
+            border: none;
+            color: var(--cs-ink-700);
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .signin:hover {
+            color: var(--cs-green-700);
+        }
+
+        /* Sections */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section {
+            padding: 96px 0;
+        }
+
+        .section--white {
+            background: #fff;
+        }
+
+        .section--paper {
+            background: var(--cs-mist);
+        }
+
+        .eyebrow {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--cs-green-700);
+        }
+
+        h1, h2, h3 {
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        h1 {
+            font-size: clamp(32px, 5vw, 64px);
+            margin: 0;
+        }
+
+        h2 {
+            font-size: clamp(28px, 4vw, 48px);
+            margin: 0;
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding: 88px 0 96px;
+        }
+
+        .hero__inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .hero__title {
+            margin: 20px 0 0;
+            color: var(--cs-ink-900);
+        }
+
+        .hero__cta {
+            display: flex;
+            gap: 16px;
+            margin-top: 32px;
+            flex-wrap: wrap;
+        }
+
+        /* Trust strip */
+        .trust-strip {
+            background: var(--cs-mist);
+            padding: 48px 0;
+            border-top: 1px solid var(--cs-line);
+            border-bottom: 1px solid var(--cs-line);
+        }
+
+        .trust-strip__inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .trust-strip__label {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--cs-ink-700);
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .trust-strip__list {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .mark {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .mark-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            background: var(--cs-green-100);
+            color: var(--cs-green-900);
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: start;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid var(--cs-line);
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: var(--cs-shadow-sm);
+            transition: box-shadow 200ms, transform 200ms;
+        }
+
+        .card:hover {
+            box-shadow: var(--cs-shadow-md);
+            transform: translateY(-3px);
+        }
+
+        .cs-p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin: 0;
+            color: var(--cs-ink-700);
+        }
+
+        /* Footer */
+        .site-footer {
+            background: var(--cs-ink-900);
+            color: #fff;
+            padding: 64px 0 32px;
+        }
+
+        .site-footer__grid {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .site-footer__col h4 {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin: 0 0 16px;
+        }
+
+        .site-footer__col ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .site-footer__col ul li {
+            margin-bottom: 12px;
+        }
+
+        .site-footer__col a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 150ms;
+        }
+
+        .site-footer__col a:hover {
+            color: var(--cs-green-700);
+        }
+
+        .addr {
+            font-size: 13px;
+            line-height: 1.6;
+            margin-top: 16px;
+            opacity: 0.8;
+        }
+
+        .site-footer__rule {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 24px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .site-footer__rule .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+        }
+
+        .copy {
+            opacity: 0.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .grid-2, .grid-3, .grid-4 {
+                grid-template-columns: 1fr;
+            }
+            
+            .site-header__nav {
+                display: none;
+            }
+
+            .site-footer__grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .hero__cta {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(18px);
+            animation: reveal-in 600ms cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+        }
+
+        @keyframes reveal-in {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="site-header" id="header">
+        <div class="site-header__inner">
+            <a href="#" class="site-header__logo" onclick="showPage('home')">
+                <span class="logo-mark">Kard<span class="logo-mark__i">i</span>t</span>
+            </a>
+            <nav class="site-header__nav" aria-label="Primary">
+                <a onclick="showPage('home')">Home</a>
+                <a onclick="showPage('about')">About</a>
+                <a onclick="showPage('solutions')">Solutions</a>
+                <a onclick="showPage('partners')">Partners</a>
+            </nav>
+            <div class="site-header__cta">
+                <button class="signin" onclick="showPage('signin')">Sign in</button>
+                <button class="btn btn--accent btn--small" onclick="showPage('onboarding')">Start enrollment</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Home Page -->
+    <div id="home-page" class="page-section active">
+        <section class="hero">
+            <div class="hero__inner">
+                <span class="eyebrow">Trade payments</span>
+                <h1 class="hero__title">African import-export rails, engineered for reliability.</h1>
+                <p class="cs-p" style="font-size: 18px; margin-top: 16px; color: var(--cs-ink-700); max-width: 640px;">
+                    Kardit connects your business to unified payment rails across Africa and Asia for seamless cross-border trade settlements.
+                </p>
+                <div class="hero__cta">
+                    <button class="btn btn--primary" onclick="showPage('onboarding')">Start enrollment</button>
+                    <button class="btn btn--ghost" onclick="showPage('contact')">Talk to a partner manager</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="trust-strip">
+            <div class="trust-strip__inner">
+                <div class="trust-strip__label">Regulated by</div>
+                <div class="trust-strip__list">
+                    <span class="mark"><span class="mark-badge">CS</span>ChamsSwitch</span>
+                    <span class="mark"><span class="mark-badge">UP</span>UnionPay International</span>
+                    <span class="mark"><span class="mark-badge">CBN</span>Central Bank of Nigeria</span>
+                    <span class="mark"><span class="mark-badge">W</span>Wema Bank</span>
+                    <span class="mark"><span class="mark-badge">P</span>Providus Bank</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section--white">
+            <div class="container">
+                <h2 style="text-align: center; margin-bottom: 48px;">Core Capabilities</h2>
+                <div class="grid-3">
+                    <div class="card">
+                        <h3 style="font-size: 18px; margin: 0 0 12px;">Cross-Border Payments</h3>
+                        <p class="cs-p">Seamless USD, GBP, and local currency settlements across 50+ African and Asian corridors.</p>
+                    </div>
+                    <div class="card">
+                        <h3 style="font-size: 18px; margin: 0 0 12px;">Real-Time Reporting</h3>
+                        <p class="cs-p">Live dashboards and API access to transaction data, compliance reports, and settlement confirmations.</p>
+                    </div>
+                    <div class="card">
+                        <h3 style="font-size: 18px; margin: 0 0 12px;">Enterprise Security</h3>
+                        <p class="cs-p">PCI-DSS Level 1, ISO 27001 certified, OWASP A+ compliance, and 256-bit encryption across all transactions.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- About Page -->
+    <div id="about-page" class="page-section">
+        <section class="section section--white">
+            <div class="container">
+                <span class="eyebrow">About Kardit</span>
+                <h1 style="margin-top: 16px; margin-bottom: 32px;">A Nigerian payments switch, built for the way Africa actually moves money.</h1>
+                <div class="grid-2">
+                    <div>
+                        <h2 style="font-size: 24px;">Our Story</h2>
+                        <p class="cs-p" style="margin-top: 16px; font-size: 16px; line-height: 1.8;">
+                            Founded in 2008 as a subsidiary of Chams Holdco Plc, Kardit is a multichannel electronic payments switch licensed by the Central Bank of Nigeria. We are listed on the Visa Global Registry and a UnionPay International cross-border partner.
+                        </p>
+                        <p class="cs-p" style="margin-top: 16px; font-size: 16px; line-height: 1.8;">
+                            We are not the loudest fintech in Lagos. Our customers — banks, ministries, hospitals, and transit operators — choose us because the rails work, the audits pass, and the team picks up the phone.
+                        </p>
+                    </div>
+                    <div>
+                        <h3 style="font-size: 18px; margin-bottom: 12px;">Key Milestones</h3>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            <li style="margin-bottom: 16px;"><strong>2008:</strong> Founded and incorporated in Lagos</li>
+                            <li style="margin-bottom: 16px;"><strong>2014:</strong> Licensed by CBN as payments switch</li>
+                            <li style="margin-bottom: 16px;"><strong>2022:</strong> Listed on Visa Global Registry</li>
+                            <li style="margin-bottom: 16px;"><strong>2024:</strong> UnionPay International licensee</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Solutions Page -->
+    <div id="solutions-page" class="page-section">
+        <section class="section section--white">
+            <div class="container">
+                <span class="eyebrow">Solutions</span>
+                <h1 style="margin-top: 16px; margin-bottom: 48px;">Enterprise Payment Solutions</h1>
+                <div class="grid-2">
+                    <div class="card">
+                        <h3 style="font-size: 20px; margin: 0 0 16px;">For Importers</h3>
+                        <p class="cs-p">Unified payment dashboard for managing suppliers across Asia and Africa, with real-time FX rates and settlement tracking.</p>
+                        <button class="btn btn--primary" style="margin-top: 16px; width: 100%;" onclick="showPage('onboarding')">Learn More</button>
+                    </div>
+                    <div class="card">
+                        <h3 style="font-size: 20px; margin: 0 0 16px;">For Banks</h3>
+                        <p class="cs-p">White-label cross-border rails, correspondent banking integrations, and comprehensive compliance reporting for regulatory bodies.</p>
+                        <button class="btn btn--primary" style="margin-top: 16px; width: 100%;" onclick="showPage('onboarding')">Learn More</button>
+                    </div>
+                    <div class="card">
+                        <h3 style="font-size: 20px; margin: 0 0 16px;">For Fintechs</h3>
+                        <p class="cs-p">API-first architecture with 99.99% uptime SLA, webhook integrations, and sandbox environments for rapid deployment.</p>
+                        <button class="btn btn--primary" style="margin-top: 16px; width: 100%;" onclick="showPage('onboarding')">Learn More</button>
+                    </div>
+                    <div class="card">
+                        <h3 style="font-size: 20px; margin: 0 0 16px;">For Government</h3>
+                        <p class="cs-p">Treasury management integrations, customs clearance payments, and SOX-compliant audit trails for public sector agencies.</p>
+                        <button class="btn btn--primary" style="margin-top: 16px; width: 100%;" onclick="showPage('onboarding')">Learn More</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Partners Page -->
+    <div id="partners-page" class="page-section">
+        <section class="section section--white">
+            <div class="container">
+                <span class="eyebrow">Our Partners</span>
+                <h1 style="margin-top: 16px; margin-bottom: 48px;">Trusted by tier-1 financial institutions</h1>
+                <div class="grid-3">
+                    <div class="card">
+                        <h3 style="font-size: 18px; margin: 0 0 12px;">Banks</h3>
+                        <p class="cs-p">Tier-1 and tier-2 banks across Nigeria and West Africa use Kardit for cross-border settlement and correspondent banking.</p>
+                    </div>
+                    <div class="card">
+                        <h3 style="font-size: 18px; margin: 0 0 12px;">Payment Service Providers</h3>
+                        <p class="cs-p">Leading PSPs leverage our unified rails for multi-channel payments, settlements, and compliance reporting.</p>
+                    </div>
+                    <div class="card">
+                        <h3 style="font-size: 18px; margin: 0 0 12px;">Government</h3>
+                        <p class="cs-p">Federal and state ministries use our platform for treasury management, customs payments, and public sector settlements.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact-page" class="page-section">
+        <section class="section section--white">
+            <div class="container">
+                <span class="eyebrow">Get in touch</span>
+                <h1 style="margin-top: 16px; margin-bottom: 48px;">Talk to our partnership team</h1>
+                <div style="max-width: 640px; margin: 0 auto;">
+                    <form style="background: var(--cs-mist); padding: 32px; border-radius: 16px;">
+                        <div style="margin-bottom: 24px;">
+                            <label style="display: block; font-weight: 600; margin-bottom: 8px;">Company Name</label>
+                            <input type="text" style="width: 100%; padding: 12px; border: 1px solid var(--cs-line); border-radius: 8px; font-size: 14px;">
+                        </div>
+                        <div style="margin-bottom: 24px;">
+                            <label style="display: block; font-weight: 600; margin-bottom: 8px;">Email</label>
+                            <input type="email" style="width: 100%; padding: 12px; border: 1px solid var(--cs-line); border-radius: 8px; font-size: 14px;">
+                        </div>
+                        <div style="margin-bottom: 24px;">
+                            <label style="display: block; font-weight: 600; margin-bottom: 8px;">Message</label>
+                            <textarea style="width: 100%; padding: 12px; border: 1px solid var(--cs-line); border-radius: 8px; font-size: 14px; min-height: 120px; resize: none;"></textarea>
+                        </div>
+                        <button type="button" class="btn btn--primary" style="width: 100%;">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Sign In Page -->
+    <div id="signin-page" class="page-section">
+        <section class="section section--white">
+            <div class="container">
+                <div style="max-width: 450px; margin: 0 auto;">
+                    <h1 style="text-align: center; margin-bottom: 12px;">Sign in to Kardit</h1>
+                    <p style="text-align: center; color: var(--cs-ink-700); margin-bottom: 32px; font-size: 14px;">Access your account to manage payments and settlements</p>
+                    <form style="background: var(--cs-mist); padding: 32px; border-radius: 16px;">
+                        <div style="margin-bottom: 24px;">
+                            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: var(--cs-ink-900);">Email Address</label>
+                            <input type="email" placeholder="you@company.com" style="width: 100%; padding: 12px; border: 1px solid var(--cs-line); border-radius: 8px; font-size: 14px; font-family: 'Inter', sans-serif;">
+                        </div>
+                        <div style="margin-bottom: 24px;">
+                            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: var(--cs-ink-900);">Password</label>
+                            <input type="password" placeholder="••••••••" style="width: 100%; padding: 12px; border: 1px solid var(--cs-line); border-radius: 8px; font-size: 14px; font-family: 'Inter', sans-serif;">
+                        </div>
+                        <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; font-size: 14px;">
+                            <label style="display: flex; align-items: center; gap: 6px;">
+                                <input type="checkbox" style="cursor: pointer;">
+                                <span>Remember me</span>
+                            </label>
+                            <a href="#" onclick="showPage('forgot-password')" style="color: var(--cs-green-700); text-decoration: none;">Forgot password?</a>
+                        </div>
+                        <button type="button" class="btn btn--primary" style="width: 100%; margin-bottom: 16px; padding: 14px;" onclick="showPage('dashboard')">Sign in</button>
+                        <div style="text-align: center; margin-bottom: 16px; color: var(--cs-ink-700);">
+                            <span style="font-size: 14px;">Don't have an account? </span>
+                            <a href="#" onclick="showPage('signup')" style="color: var(--cs-green-700); text-decoration: none; font-weight: 600;">Create one</a>
+                        </div>
+                        <button type="button" class="btn btn--ghost" style="width: 100%;" onclick="showPage('onboarding')">Start enrollment instead</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Sign Up Page -->
+    <div id="signup-page" class="page-section">
+        <section class="section section--white">
+            <div class="container">
+                <div style="max-width: 450px; margin: 0 auto;">
+                    <h1 style="text-align: center; margin-bottom: 12px;">Create your account</h1>
+                    <p style="text-align: center; color: var(--cs-ink-700); margin-bottom: 32px; font-size: 14px;">Join Kardit to manage cross-border payments</p>
+                    <form style="background: var(--cs-mist); padding: 32px; border-radius: 16px;">
+                        <div style="margin-bottom: 24px;">
+                            <label style="display: block; font-weight: 600; margin-bottom: 8px;">Company Name</label>
+                            <input type="text" placeholder="Your Company Inc." style="width: 100%; padding: 12px; border: 1px solid var(--cs-line); border-radius: 8px; font-size: 14px; font-family: 'Inter', sans-serif;">
+                        </div>
+                        <div style="margin-bottom: 24px;">
+                            <label style="display: block; font-weight: 600; margin-bottom: 8px;">Email Address</label>
+                            <input type="email" placeholder="admin@company.com" style="width: 100%; padding: 12px; border: 1px solid var(--cs-line); border-radius: 8px; font-size: 14px; font-family: 'Inter', sans-serif;">
+                        </div>
+                        <div style="margin-bottom: 24px;">
+                            <label style="display: block; font-weight: 600; margin-bottom: 8px;">Password</label>
+                            <input type="password" placeholder="Min. 8 characters" style="width: 100%; padding: 12px; border: 1px solid var(--cs-line); border-radius: 8px; font-size: 14px; font-family: 'Inter', sans-serif;">
+                        </div>
+                        <div style="margin-bottom: 24px;">
+                            <label style="display: block; font-weight: 600; margin-bottom: 8px;">Confirm Password</label>
+                            <input type="password" placeholder="••••••••" style="width: 100%; padding: 12px; border: 1px solid var(--cs-line); border-radius: 8px; font-size: 14px; font-family: 'Inter', sans-serif;">
+                        </div>
+                        <div style="margin-bottom: 24px; padding: 12px; background: #fff; border: 1px solid var(--cs-line); border-radius: 8px; font-size: 13px;">
+                            <input type="checkbox" style="cursor: pointer;">
+                            <span style="margin-left: 8px;">I agree to the <a href="#" style="color: var(--cs-green-700); text-decoration: none;">Terms of Service</a> and <a href="#" style="color: var(--cs-green-700); text-decoration: none;">Privacy Policy</a></span>
+                        </div>
+                        <button type="button" class="btn btn--primary" style="width: 100%; margin-bottom: 16px; padding: 14px;" onclick="showPage('dashboard')">Create account</button>
+                        <div style="text-align: center; font-size: 14px;">
+                            Already have an account? <a href="#" onclick="showPage('signin')" style="color: var(--cs-green-700); text-decoration: none; font-weight: 600;">Sign in</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Dashboard / Account Page -->
+    <div id="dashboard-page" class="page-section">
+        <section class="section section--white">
+            <div class="container">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 48px;">
+                    <h1 style="margin: 0;">Dashboard</h1>
+                    <button class="btn btn--ghost" style="padding: 10px 16px;" onclick="showPage('home')">Sign out</button>
+                </div>
+                
+                <div class="grid-2" style="margin-bottom: 48px;">
+                    <div class="card">
+                        <h3 style="font-size: 13px; font-weight: 700; text-transform: uppercase; color: var(--cs-green-700); margin: 0 0 8px;">Account Balance</h3>
+                        <div style="font-size: 32px; font-weight: 800; color: var(--cs-ink-900); margin: 0;">$45,230.50</div>
+                        <p class="cs-p" style="margin-top: 12px; margin-bottom: 0; font-size: 13px;">USD Settlement Account</p>
+                    </div>
+                    <div class="card">
+                        <h3 style="font-size: 13px; font-weight: 700; text-transform: uppercase; color: var(--cs-green-700); margin: 0 0 8px;">30-Day Transactions</h3>
+                        <div style="font-size: 32px; font-weight: 800; color: var(--cs-ink-900); margin: 0;">28</div>
+                        <p class="cs-p" style="margin-top: 12px; margin-bottom: 0; font-size: 13px;">Total payments processed</p>
+                    </div>
+                </div>
+
+                <h2 style="font-size: 20px; margin-bottom: 24px;">Recent Transactions</h2>
+                <div style="background: #fff; border: 1px solid var(--cs-line); border-radius: 12px; overflow: hidden;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+                        <thead>
+                            <tr style="background: var(--cs-mist); border-bottom: 1px solid var(--cs-line);">
+                                <th style="padding: 16px; text-align: left; font-weight: 700;">Date</th>
+                                <th style="padding: 16px; text-align: left; font-weight: 700;">Recipient</th>
+                                <th style="padding: 16px; text-align: left; font-weight: 700;">Amount</th>
+                                <th style="padding: 16px; text-align: left; font-weight: 700;">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid var(--cs-line);">
+                                <td style="padding: 16px;">Jun 2, 2024</td>
+                                <td style="padding: 16px;">Supplier Ltd.</td>
+                                <td style="padding: 16px;">$5,200.00</td>
+                                <td style="padding: 16px;"><span style="background: #d4f4e8; color: var(--cs-green-900); padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 600;">Completed</span></td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--cs-line);">
+                                <td style="padding: 16px;">Jun 1, 2024</td>
+                                <td style="padding: 16px;">Import Partners Co.</td>
+                                <td style="padding: 16px;">$3,850.00</td>
+                                <td style="padding: 16px;"><span style="background: #d4f4e8; color: var(--cs-green-900); padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 600;">Completed</span></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 16px;">May 31, 2024</td>
+                                <td style="padding: 16px;">Trade Services Inc.</td>
+                                <td style="padding: 16px;">$2,100.00</td>
+                                <td style="padding: 16px;"><span style="background: #fff3cd; color: #856404; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 600;">Pending</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="margin-top: 48px;">
+                    <h2 style="font-size: 20px; margin-bottom: 24px;">Account Settings</h2>
+                    <div class="grid-2">
+                        <div class="card">
+                            <h3 style="font-size: 16px; margin: 0 0 12px;">Profile Information</h3>
+                            <p class="cs-p">Update your company details and contact information</p>
+                            <button class="btn btn--ghost" style="width: 100%; margin-top: 16px;">Edit Profile</button>
+                        </div>
+                        <div class="card">
+                            <h3 style="font-size: 16px; margin: 0 0 12px;">Security Settings</h3>
+                            <p class="cs-p">Manage passwords, two-factor authentication, and sessions</p>
+                            <button class="btn btn--ghost" style="width: 100%; margin-top: 16px;">Security</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Forgot Password Page -->
+    <div id="forgot-password-page" class="page-section">
+        <section class="section section--white">
+            <div class="container">
+                <div style="max-width: 450px; margin: 0 auto;">
+                    <h1 style="text-align: center; margin-bottom: 12px;">Reset your password</h1>
+                    <p style="text-align: center; color: var(--cs-ink-700); margin-bottom: 32px; font-size: 14px;">Enter your email address and we'll send you a password reset link</p>
+                    <form style="background: var(--cs-mist); padding: 32px; border-radius: 16px;">
+                        <div style="margin-bottom: 24px;">
+                            <label style="display: block; font-weight: 600; margin-bottom: 8px;">Email Address</label>
+                            <input type="email" placeholder="you@company.com" style="width: 100%; padding: 12px; border: 1px solid var(--cs-line); border-radius: 8px; font-size: 14px; font-family: 'Inter', sans-serif;">
+                        </div>
+                        <button type="button" class="btn btn--primary" style="width: 100%; margin-bottom: 16px; padding: 14px;">Send Reset Link</button>
+                        <div style="text-align: center;">
+                            <a href="#" onclick="showPage('signin')" style="color: var(--cs-green-700); text-decoration: none; font-size: 14px;">Back to sign in</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Onboarding Page -->
+    <div id="onboarding-page" class="page-section">
+        <section class="section section--white">
+            <div class="container">
+                <span class="eyebrow">Getting started</span>
+                <h1 style="margin-top: 16px; margin-bottom: 48px;">Start your enrollment today</h1>
+                <div style="max-width: 640px; margin: 0 auto;">
+                    <div class="grid-3">
+                        <div class="card" style="grid-column: span 3;">
+                            <span style="color: var(--cs-green-700); font-weight: 700; font-size: 12px; text-transform: uppercase;">Step 1</span>
+                            <h3 style="font-size: 20px; margin: 8px 0 16px;">Company Information</h3>
+                            <p class="cs-p">Provide your business details, registration number, and authorized signatories.</p>
+                        </div>
+                        <div class="card" style="grid-column: span 3;">
+                            <span style="color: var(--cs-green-700); font-weight: 700; font-size: 12px; text-transform: uppercase;">Step 2</span>
+                            <h3 style="font-size: 20px; margin: 8px 0 16px;">Document Verification</h3>
+                            <p class="cs-p">Upload CAC registration, bank statements, and director identity documents for KYB verification.</p>
+                        </div>
+                        <div class="card" style="grid-column: span 3;">
+                            <span style="color: var(--cs-green-700); font-weight: 700; font-size: 12px; text-transform: uppercase;">Step 3</span>
+                            <h3 style="font-size: 20px; margin: 8px 0 16px;">Bank Details</h3>
+                            <p class="cs-p">Provide your settlement bank account for trade payment credits and disbursements.</p>
+                        </div>
+                    </div>
+                    <button class="btn btn--primary" style="width: 100%; margin-top: 32px; padding: 16px;">Begin Enrollment</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="site-footer__grid">
+            <div class="site-footer__brand">
+                <span class="logo-mark" style="color: #fff; font-size: 22px;">Kard<span class="logo-mark__i">i</span>t</span>
+                <p style="margin-top: 16px; font-size: 14px; line-height: 1.6;">Trade payment infrastructure for African businesses operating across Asia-facing commerce corridors.</p>
+                <div class="addr">
+                    8, Louis Solomon Close, Victoria Island, Lagos<br>
+                    +234-803-394-4566 · support@kardit.com
+                </div>
+            </div>
+            <div class="site-footer__col">
+                <h4>Platform</h4>
+                <ul>
+                    <li><a href="#" onclick="showPage('solutions')">Payments</a></li>
+                    <li><a href="#" onclick="showPage('solutions')">Reporting</a></li>
+                    <li><a href="#">API Docs</a></li>
+                </ul>
+            </div>
+            <div class="site-footer__col">
+                <h4>Trust</h4>
+                <ul>
+                    <li><a href="#" onclick="showPage('about')">ChamsSwitch</a></li>
+                    <li><a href="#" onclick="showPage('about')">CBN License</a></li>
+                    <li><a href="#" onclick="showPage('about')">UnionPay</a></li>
+                </ul>
+            </div>
+            <div class="site-footer__col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#" onclick="showPage('about')">About</a></li>
+                    <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+                    <li><a href="#" onclick="showPage('partners')">Partners</a></li>
+                </ul>
+            </div>
+            <div class="site-footer__col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy</a></li>
+                    <li><a href="#">Terms</a></li>
+                    <li><a href="#">Compliance</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="site-footer__rule">
+            <div class="row">
+                <div class="copy">&copy; 2024 Kardit Limited · A subsidiary of Chams Holdco Plc</div>
+                <div style="display: flex; gap: 16px; font-size: 12px;">
+                    <span style="border: 1px solid rgba(255,255,255,0.2); padding: 4px 8px; border-radius: 4px;">PCI-DSS</span>
+                    <span style="border: 1px solid rgba(255,255,255,0.2); padding: 4px 8px; border-radius: 4px;">ISO 27001</span>
+                    <span style="border: 1px solid rgba(255,255,255,0.2); padding: 4px 8px; border-radius: 4px;">OWASP A+</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-section').forEach(page => {
+                page.classList.remove('active');
+            });
+            // Show selected page
+            const page = document.getElementById(pageId + '-page');
+            if (page) {
+                page.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 8) {
+                header.classList.add('is-scrolled');
+            } else {
+                header.classList.remove('is-scrolled');
+            }
+        });
+
+        // Reveal animations
+        document.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach(el => {
+                el.style.animation = 'reveal-in 600ms cubic-bezier(0.2, 0.7, 0.2, 1) forwards';
+            });
+        });
+    </script>
+</body>
+</html>
