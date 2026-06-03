@@ -632,166 +632,19 @@
     <div id="signin-page" class="page-section">
         <section class="section section--white">
             <div class="container">
-                <div style="max-width: 450px; margin: 0 auto;">
-                    <h1 style="text-align: center; margin-bottom: 12px;">Sign in to Kardit</h1>
-                    <p style="text-align: center; color: var(--cs-ink-700); margin-bottom: 32px; font-size: 14px;">Access your account to manage payments and settlements</p>
+                <div style="max-width: 400px; margin: 0 auto;">
+                    <h1 style="text-align: center; margin-bottom: 32px;">Sign in to Kardit</h1>
                     <form style="background: var(--cs-mist); padding: 32px; border-radius: 16px;">
                         <div style="margin-bottom: 24px;">
-                            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: var(--cs-ink-900);">Email Address</label>
-                            <input type="email" placeholder="you@company.com" style="width: 100%; padding: 12px; border: 1px solid var(--cs-line); border-radius: 8px; font-size: 14px; font-family: 'Inter', sans-serif;">
-                        </div>
-                        <div style="margin-bottom: 24px;">
-                            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: var(--cs-ink-900);">Password</label>
-                            <input type="password" placeholder="••••••••" style="width: 100%; padding: 12px; border: 1px solid var(--cs-line); border-radius: 8px; font-size: 14px; font-family: 'Inter', sans-serif;">
-                        </div>
-                        <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; font-size: 14px;">
-                            <label style="display: flex; align-items: center; gap: 6px;">
-                                <input type="checkbox" style="cursor: pointer;">
-                                <span>Remember me</span>
-                            </label>
-                            <a href="#" onclick="showPage('forgot-password')" style="color: var(--cs-green-700); text-decoration: none;">Forgot password?</a>
-                        </div>
-                        <button type="button" class="btn btn--primary" style="width: 100%; margin-bottom: 16px; padding: 14px;" onclick="showPage('dashboard')">Sign in</button>
-                        <div style="text-align: center; margin-bottom: 16px; color: var(--cs-ink-700);">
-                            <span style="font-size: 14px;">Don't have an account? </span>
-                            <a href="#" onclick="showPage('signup')" style="color: var(--cs-green-700); text-decoration: none; font-weight: 600;">Create one</a>
-                        </div>
-                        <button type="button" class="btn btn--ghost" style="width: 100%;" onclick="showPage('onboarding')">Start enrollment instead</button>
-                    </form>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- Sign Up Page -->
-    <div id="signup-page" class="page-section">
-        <section class="section section--white">
-            <div class="container">
-                <div style="max-width: 450px; margin: 0 auto;">
-                    <h1 style="text-align: center; margin-bottom: 12px;">Create your account</h1>
-                    <p style="text-align: center; color: var(--cs-ink-700); margin-bottom: 32px; font-size: 14px;">Join Kardit to manage cross-border payments</p>
-                    <form style="background: var(--cs-mist); padding: 32px; border-radius: 16px;">
-                        <div style="margin-bottom: 24px;">
-                            <label style="display: block; font-weight: 600; margin-bottom: 8px;">Company Name</label>
-                            <input type="text" placeholder="Your Company Inc." style="width: 100%; padding: 12px; border: 1px solid var(--cs-line); border-radius: 8px; font-size: 14px; font-family: 'Inter', sans-serif;">
-                        </div>
-                        <div style="margin-bottom: 24px;">
-                            <label style="display: block; font-weight: 600; margin-bottom: 8px;">Email Address</label>
-                            <input type="email" placeholder="admin@company.com" style="width: 100%; padding: 12px; border: 1px solid var(--cs-line); border-radius: 8px; font-size: 14px; font-family: 'Inter', sans-serif;">
+                            <label style="display: block; font-weight: 600; margin-bottom: 8px;">Email</label>
+                            <input type="email" placeholder="you@company.com" style="width: 100%; padding: 12px; border: 1px solid var(--cs-line); border-radius: 8px; font-size: 14px;">
                         </div>
                         <div style="margin-bottom: 24px;">
                             <label style="display: block; font-weight: 600; margin-bottom: 8px;">Password</label>
-                            <input type="password" placeholder="Min. 8 characters" style="width: 100%; padding: 12px; border: 1px solid var(--cs-line); border-radius: 8px; font-size: 14px; font-family: 'Inter', sans-serif;">
+                            <input type="password" placeholder="••••••••" style="width: 100%; padding: 12px; border: 1px solid var(--cs-line); border-radius: 8px; font-size: 14px;">
                         </div>
-                        <div style="margin-bottom: 24px;">
-                            <label style="display: block; font-weight: 600; margin-bottom: 8px;">Confirm Password</label>
-                            <input type="password" placeholder="••••••••" style="width: 100%; padding: 12px; border: 1px solid var(--cs-line); border-radius: 8px; font-size: 14px; font-family: 'Inter', sans-serif;">
-                        </div>
-                        <div style="margin-bottom: 24px; padding: 12px; background: #fff; border: 1px solid var(--cs-line); border-radius: 8px; font-size: 13px;">
-                            <input type="checkbox" style="cursor: pointer;">
-                            <span style="margin-left: 8px;">I agree to the <a href="#" style="color: var(--cs-green-700); text-decoration: none;">Terms of Service</a> and <a href="#" style="color: var(--cs-green-700); text-decoration: none;">Privacy Policy</a></span>
-                        </div>
-                        <button type="button" class="btn btn--primary" style="width: 100%; margin-bottom: 16px; padding: 14px;" onclick="showPage('dashboard')">Create account</button>
-                        <div style="text-align: center; font-size: 14px;">
-                            Already have an account? <a href="#" onclick="showPage('signin')" style="color: var(--cs-green-700); text-decoration: none; font-weight: 600;">Sign in</a>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- Dashboard / Account Page -->
-    <div id="dashboard-page" class="page-section">
-        <section class="section section--white">
-            <div class="container">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 48px;">
-                    <h1 style="margin: 0;">Dashboard</h1>
-                    <button class="btn btn--ghost" style="padding: 10px 16px;" onclick="showPage('home')">Sign out</button>
-                </div>
-                
-                <div class="grid-2" style="margin-bottom: 48px;">
-                    <div class="card">
-                        <h3 style="font-size: 13px; font-weight: 700; text-transform: uppercase; color: var(--cs-green-700); margin: 0 0 8px;">Account Balance</h3>
-                        <div style="font-size: 32px; font-weight: 800; color: var(--cs-ink-900); margin: 0;">$45,230.50</div>
-                        <p class="cs-p" style="margin-top: 12px; margin-bottom: 0; font-size: 13px;">USD Settlement Account</p>
-                    </div>
-                    <div class="card">
-                        <h3 style="font-size: 13px; font-weight: 700; text-transform: uppercase; color: var(--cs-green-700); margin: 0 0 8px;">30-Day Transactions</h3>
-                        <div style="font-size: 32px; font-weight: 800; color: var(--cs-ink-900); margin: 0;">28</div>
-                        <p class="cs-p" style="margin-top: 12px; margin-bottom: 0; font-size: 13px;">Total payments processed</p>
-                    </div>
-                </div>
-
-                <h2 style="font-size: 20px; margin-bottom: 24px;">Recent Transactions</h2>
-                <div style="background: #fff; border: 1px solid var(--cs-line); border-radius: 12px; overflow: hidden;">
-                    <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
-                        <thead>
-                            <tr style="background: var(--cs-mist); border-bottom: 1px solid var(--cs-line);">
-                                <th style="padding: 16px; text-align: left; font-weight: 700;">Date</th>
-                                <th style="padding: 16px; text-align: left; font-weight: 700;">Recipient</th>
-                                <th style="padding: 16px; text-align: left; font-weight: 700;">Amount</th>
-                                <th style="padding: 16px; text-align: left; font-weight: 700;">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr style="border-bottom: 1px solid var(--cs-line);">
-                                <td style="padding: 16px;">Jun 2, 2024</td>
-                                <td style="padding: 16px;">Supplier Ltd.</td>
-                                <td style="padding: 16px;">$5,200.00</td>
-                                <td style="padding: 16px;"><span style="background: #d4f4e8; color: var(--cs-green-900); padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 600;">Completed</span></td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid var(--cs-line);">
-                                <td style="padding: 16px;">Jun 1, 2024</td>
-                                <td style="padding: 16px;">Import Partners Co.</td>
-                                <td style="padding: 16px;">$3,850.00</td>
-                                <td style="padding: 16px;"><span style="background: #d4f4e8; color: var(--cs-green-900); padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 600;">Completed</span></td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 16px;">May 31, 2024</td>
-                                <td style="padding: 16px;">Trade Services Inc.</td>
-                                <td style="padding: 16px;">$2,100.00</td>
-                                <td style="padding: 16px;"><span style="background: #fff3cd; color: #856404; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 600;">Pending</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div style="margin-top: 48px;">
-                    <h2 style="font-size: 20px; margin-bottom: 24px;">Account Settings</h2>
-                    <div class="grid-2">
-                        <div class="card">
-                            <h3 style="font-size: 16px; margin: 0 0 12px;">Profile Information</h3>
-                            <p class="cs-p">Update your company details and contact information</p>
-                            <button class="btn btn--ghost" style="width: 100%; margin-top: 16px;">Edit Profile</button>
-                        </div>
-                        <div class="card">
-                            <h3 style="font-size: 16px; margin: 0 0 12px;">Security Settings</h3>
-                            <p class="cs-p">Manage passwords, two-factor authentication, and sessions</p>
-                            <button class="btn btn--ghost" style="width: 100%; margin-top: 16px;">Security</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- Forgot Password Page -->
-    <div id="forgot-password-page" class="page-section">
-        <section class="section section--white">
-            <div class="container">
-                <div style="max-width: 450px; margin: 0 auto;">
-                    <h1 style="text-align: center; margin-bottom: 12px;">Reset your password</h1>
-                    <p style="text-align: center; color: var(--cs-ink-700); margin-bottom: 32px; font-size: 14px;">Enter your email address and we'll send you a password reset link</p>
-                    <form style="background: var(--cs-mist); padding: 32px; border-radius: 16px;">
-                        <div style="margin-bottom: 24px;">
-                            <label style="display: block; font-weight: 600; margin-bottom: 8px;">Email Address</label>
-                            <input type="email" placeholder="you@company.com" style="width: 100%; padding: 12px; border: 1px solid var(--cs-line); border-radius: 8px; font-size: 14px; font-family: 'Inter', sans-serif;">
-                        </div>
-                        <button type="button" class="btn btn--primary" style="width: 100%; margin-bottom: 16px; padding: 14px;">Send Reset Link</button>
-                        <div style="text-align: center;">
-                            <a href="#" onclick="showPage('signin')" style="color: var(--cs-green-700); text-decoration: none; font-size: 14px;">Back to sign in</a>
-                        </div>
+                        <button type="button" class="btn btn--primary" style="width: 100%; margin-bottom: 16px;">Sign in</button>
+                        <button type="button" class="btn btn--ghost" style="width: 100%;" onclick="showPage('onboarding')">Create new account</button>
                     </form>
                 </div>
             </div>
