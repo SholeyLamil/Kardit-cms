@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kardit - Trade Payment Infrastructure</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cs-green-900: #0F4F2E;
+      --cs-green-700: #1B7A45;
+      --cs-green-500: #2BA15D;
+      --cs-green-300: #BFE5CE;
+      --cs-green-100: #E8F6EE;
+      --cs-red-900: #9A1A1A;
+      --cs-red-700: #C8242C;
+      --cs-red-500: #E63946;
+      --cs-red-300: #F5B5B9;
+      --cs-red-100: #FCEAEC;
+      --cs-white: #FFFFFF;
+      --cs-paper: #FAFBF9;
+      --cs-mist: #F2F4F1;
+      --cs-line: #E4E7E2;
+      --cs-line-strong: #C9CEC4;
+      --cs-ink-100: #8C9189;
+      --cs-ink-200: #5C6359;
+      --cs-ink-400: #2F3530;
+      --cs-ink-700: #161A17;
+      --cs-ink-900: #0A0C0A;
+      --cs-fg: var(--cs-ink-700);
+      --cs-bg: var(--cs-paper);
+      --cs-font-display: "Plus Jakarta Sans", "Lato", system-ui, sans-serif;
+      --cs-font-body: "Lato", system-ui, -apple-system, "Segoe UI", sans-serif;
+      --cs-shadow-sm: 0 2px 6px rgba(15, 30, 18, 0.06);
+      --cs-shadow-md: 0 6px 18px rgba(15, 30, 18, 0.08);
+      --cs-shadow-lg: 0 18px 48px rgba(15, 30, 18, 0.12);
+    }
+    
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: var(--cs-font-body);
+      color: var(--cs-fg);
+      background: var(--cs-bg);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+    
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+    @media (max-width: 720px) { .container { padding: 0 24px; } }
+    
+    .site-header {
+      position: sticky; top: 0; z-index: 60;
+      height: 72px;
+      background: rgba(255, 255, 255, 0.65);
+      border-bottom: 1px solid transparent;
+      transition: all 200ms ease;
+    }
+    .site-header.is-scrolled {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom-color: var(--cs-line);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .site-header__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      height: 100%;
+      display: flex; align-items: center; gap: 28px;
+      padding: 0 32px;
+    }
+    .logo-mark {
+      font-family: var(--cs-font-display);
+      font-weight: 800;
+      font-size: 26px;
+      color: var(--cs-green-900);
+      display: inline-flex;
+      align-items: baseline;
+      user-select: none;
+      cursor: pointer;
+    }
+    .logo-mark__i {
+      position: relative;
+      display: inline-block;
+    }
+    .logo-mark__i::after {
+      content: "";
+      position: absolute;
+      top: -0.18em;
+      left: 50%;
+      width: 0.22em;
+      height: 0.22em;
+      border-radius: 50%;
+      background: var(--cs-red-700);
+      transform: translate(-50%, 0);
+    }
+    .site-header__nav { display: flex; gap: 4px; flex: 1; }
+    .site-header__nav a {
+      font-weight: 600; font-size: 14px; color: var(--cs-ink-700);
+      padding: 10px 14px; border-radius: 8px;
+      transition: color 150ms ease;
+    }
+    .site-header__nav a:hover { color: var(--cs-green-700); }
+    .site-header__cta {
+      display: flex; align-items: center; gap: 8px;
+      margin-left: auto;
+    }
+    .site-header__cta .signin { padding: 10px 14px; font-size: 14px; font-weight: 600; color: var(--cs-ink-700); background: none; }
+    .site-header__cta .signin:hover { color: var(--cs-green-700); }
+    
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      font-family: var(--cs-font-body); font-weight: 700; font-size: 15px;
+      padding: 14px 22px;
+      border-radius: 10px; border: 1.5px solid transparent;
+      text-decoration: none;
+      transition: all 150ms ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn:hover { box-shadow: var(--cs-shadow-md); transform: translateY(-2px); }
+    .btn--primary { background: var(--cs-green-700); color: #fff; }
+    .btn--primary:hover { background: var(--cs-green-900); }
+    .btn--accent { background: var(--cs-red-700); color: #fff; }
+    .btn--accent:hover { background: var(--cs-red-900); }
+    .btn--ghost { background: #fff; color: var(--cs-ink-700); border-color: var(--cs-line-strong); }
+    .btn--ghost:hover { background: var(--cs-mist); }
+    .btn--small { padding: 10px 16px; font-size: 14px; }
+    
+    .hero { position: relative; overflow: hidden; padding: 88px 0 96px; }
+    .hero__inner { position: relative; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 64px; align-items: center; }
+    .hero__title {
+      font-family: var(--cs-font-display); font-weight: 800;
+      font-size: clamp(40px, 6.4vw, 72px);
+      line-height: 1.04;
+      color: var(--cs-ink-900);
+      margin: 20px 0 0;
+    }
+    .hero__title em { font-style: normal; color: var(--cs-green-700); }
+    .hero__lede {
+      font-size: 18px; line-height: 1.6; color: var(--cs-ink-200);
+      margin: 20px 0 0; max-width: 520px;
+    }
+    .hero__cta { display: flex; gap: 12px; margin-top: 32px; flex-wrap: wrap; }
+    .hero__card {
+      background: #fff; border: 1px solid var(--cs-line); border-radius: 20px;
+      padding: 24px;
+      box-shadow: var(--cs-shadow-lg);
+    }
+    
+    .trust-strip {
+      padding: 64px 0;
+      background: var(--cs-mist);
+    }
+    .trust-strip__inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+      text-align: center;
+    }
+    .trust-strip__label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--cs-ink-100);
+    }
+    .trust-strip__list {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .trust-strip__list img {
+      height: 40px;
+      width: auto;
+      object-fit: contain;
+    }
+    .mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--cs-ink-700);
+      white-space: nowrap;
+    }
+    .mark-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: var(--cs-green-100);
+      color: var(--cs-green-900);
+      font-weight: 700;
+      font-size: 11px;
+    }
+    
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity 600ms cubic-bezier(.2,.7,.2,1), transform 600ms cubic-bezier(.2,.7,.2,1); }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+    .reveal[data-delay="1"].is-visible { transition-delay: 80ms; }
+    .reveal[data-delay="2"].is-visible { transition-delay: 160ms; }
+    .reveal[data-delay="3"].is-visible { transition-delay: 240ms; }
+    
+    .section { padding: 96px 0; }
+    .section--alt { background: var(--cs-mist); }
+    .section__title {
+      font-family: var(--cs-font-display);
+      font-weight: 700;
+      font-size: clamp(32px, 4.8vw, 48px);
+      line-height: 1.2;
+      color: var(--cs-ink-900);
+      margin: 0 0 32px;
+      text-align: center;
+    }
+    
+    .card {
+      background: #fff;
+      border: 1px solid var(--cs-line);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: var(--cs-shadow-sm);
+      transition: all 200ms ease;
+    }
+    .card:hover {
+      box-shadow: var(--cs-shadow-md);
+      transform: translateY(-3px);
+    }
+    
+    .site-footer {
+      background: var(--cs-ink-700);
+      color: #fff;
+      padding: 64px 0 32px;
+    }
+    .site-footer__grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 32px;
+    }
+    .site-footer__brand p {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 14px;
+      line-height: 1.6;
+      margin: 12px 0;
+    }
+    .site-footer__col h4 {
+      color: #fff;
+      font-weight: 700;
+      margin: 0 0 12px;
+    }
+    .site-footer__col ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .site-footer__col li {
+      margin-bottom: 8px;
+    }
+    .site-footer__col a {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 14px;
+      transition: color 150ms ease;
+    }
+    .site-footer__col a:hover { color: #fff; }
+    .site-footer__rule {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 24px;
+      text-align: center;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+    
+    @media (max-width: 1100px) {
+      .hero__inner { grid-template-columns: 1fr; gap: 40px; }
+      .site-footer__grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .container { padding: 0 16px; }
+      .site-footer__grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header" id="header" role="banner">
+    <div class="site-header__inner">
+      <a href="#" class="site-header__logo">
+        <span class="logo-mark">Kard<span class="logo-mark__i">i</span>t</span>
+      </a>
+      <nav class="site-header__nav">
+        <a href="#trust">Trust</a>
+        <a href="#security">Security</a>
+        <a href="#partners">Partners</a>
+      </nav>
+      <div class="site-header__cta">
+        <button class="signin" onclick="alert('Sign in - Coming soon')">Sign in</button>
+        <button class="btn btn--accent btn--small" onclick="alert('Start enrollment - Coming soon')">Start enrollment</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero__inner">
+        <div>
+          <h1 class="hero__title">
+            Trade payment<br>infrastructure for<br><em>African</em> businesses
+          </h1>
+          <p class="hero__lede">Kardit simplifies cross-border payments for importers, traders, and e-commerce merchants across Africa, Asia, and beyond.</p>
+          <div class="hero__cta">
+            <button class="btn btn--primary" onclick="alert('Start enrollment - Coming soon')">Start enrollment ↓</button>
+            <button class="btn btn--ghost" onclick="alert('Contact - Coming soon')">Talk to a partner manager</button>
+          </div>
+        </div>
+        <div class="hero__card">
+          <p style="margin: 0; font-weight: 700; color: var(--cs-ink-900);">Live trade volume</p>
+          <div style="font-size: 32px; font-weight: 700; color: var(--cs-green-700); margin: 8px 0;">$2.4B+</div>
+          <p style="margin: 0; font-size: 12px; color: var(--cs-ink-100);">Trading across our platform</p>
+        </div>
+      </div>
+    </section>
+
+    <div id="trust" class="trust-strip">
+      <div class="container trust-strip__inner reveal">
+        <div class="trust-strip__label">Regulated by</div>
+        <div class="trust-strip__list">
+          <span class="mark"><span class="mark-badge">CS</span>ChamsSwitch</span>
+          <span style="font-weight: 700; color: #C8242C;">UnionPay</span>
+          <span style="font-weight: 700; color: #1B7A45;">CBN</span>
+          <span style="font-weight: 700; color: #1B7A45;">Wema Bank</span>
+          <span style="font-weight: 700; color: #C8242C;">Providus</span>
+        </div>
+      </div>
+    </div>
+
+    <section class="section" id="platform">
+      <div class="container">
+        <h2 class="section__title reveal">Platform capabilities</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
+          <div class="card reveal" data-delay="1">
+            <h3 style="font-size: 18px; color: var(--cs-ink-900); margin: 0 0 12px;">Instant Payments</h3>
+            <p style="font-size: 14px; color: var(--cs-ink-400); margin: 0;">Send and receive payments globally in minutes</p>
+          </div>
+          <div class="card reveal" data-delay="2">
+            <h3 style="font-size: 18px; color: var(--cs-ink-900); margin: 0 0 12px;">Real-time Reporting</h3>
+            <p style="font-size: 14px; color: var(--cs-ink-400); margin: 0;">Track all transactions and settlement status instantly</p>
+          </div>
+          <div class="card reveal" data-delay="3">
+            <h3 style="font-size: 18px; color: var(--cs-ink-900); margin: 0 0 12px;">Multi-currency</h3>
+            <p style="font-size: 14px; color: var(--cs-ink-400); margin: 0;">Settle in USD, NGN, GHS, KES, and more currencies</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt" id="security">
+      <div class="container">
+        <h2 class="section__title reveal">Security & Compliance</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
+          <div class="card reveal" data-delay="1">
+            <h3 style="font-size: 18px; color: var(--cs-ink-900); margin: 0 0 12px;">PCI-DSS Level 1</h3>
+            <p style="font-size: 14px; color: var(--cs-ink-400); margin: 0;">Highest payment security standard</p>
+          </div>
+          <div class="card reveal" data-delay="2">
+            <h3 style="font-size: 18px; color: var(--cs-ink-900); margin: 0 0 12px;">ISO 27001</h3>
+            <p style="font-size: 14px; color: var(--cs-ink-400); margin: 0;">Information security management certified</p>
+          </div>
+          <div class="card reveal" data-delay="3">
+            <h3 style="font-size: 18px; color: var(--cs-ink-900); margin: 0 0 12px;">OWASP Compliant</h3>
+            <p style="font-size: 14px; color: var(--cs-ink-400); margin: 0;">Protected against web security vulnerabilities</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="partners">
+      <div class="container">
+        <h2 class="section__title reveal">Our Partners Trust Us</h2>
+        <div style="text-align: center; color: var(--cs-ink-400);">
+          <p>Join thousands of businesses using Kardit for secure, fast international payments.</p>
+          <button class="btn btn--primary" onclick="alert('Start enrollment - Coming soon')" style="margin-top: 24px;">Start enrollment</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="site-footer__grid">
+        <div class="site-footer__brand">
+          <span class="logo-mark" style="color: #fff; font-size: 22px;">Kard<span class="logo-mark__i">i</span>t</span>
+          <p>Trade payment infrastructure for African businesses operating across Asia-facing commerce corridors.</p>
+          <div style="font-size: 12px; color: rgba(255, 255, 255, 0.6);">
+            8, Louis Solomon Close, Victoria Island, Lagos<br>
+            +234-803-394-4566 · support@kardit.com
+          </div>
+        </div>
+        <div class="site-footer__col">
+          <h4>Platform</h4>
+          <ul>
+            <li><a href="#platform">Payments</a></li>
+            <li><a href="#platform">Corporate cards</a></li>
+            <li><a href="#platform">Reporting</a></li>
+          </ul>
+        </div>
+        <div class="site-footer__col">
+          <h4>Trust</h4>
+          <ul>
+            <li><a href="#trust">ChamsSwitch</a></li>
+            <li><a href="#trust">CBN licensing</a></li>
+            <li><a href="#partners">UnionPay TPSP</a></li>
+          </ul>
+        </div>
+        <div class="site-footer__col">
+          <h4>Security</h4>
+          <ul>
+            <li><a href="#security">IAM</a></li>
+            <li><a href="#security">KYB/KYC</a></li>
+            <li><a href="#security">Audit logs</a></li>
+          </ul>
+        </div>
+        <div class="site-footer__col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#" onclick="alert('Contact - Coming soon')">Contact</a></li>
+            <li><a href="#" onclick="alert('Enrollment - Coming soon')">Enrollment</a></li>
+            <li><a href="#" onclick="alert('Sign in - Coming soon')">Sign in</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="site-footer__rule">
+        <p>&copy; 2026 Kardit Limited · A subsidiary of Chams Holdco Plc | PCI-DSS | ISO 27001 | OWASP</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('is-scrolled', window.scrollY > 8);
+    });
+
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+    } else {
+      document.querySelectorAll('.reveal').forEach((el) => el.classList.add('is-visible'));
+    }
+  </script>
+</body>
+</html>
