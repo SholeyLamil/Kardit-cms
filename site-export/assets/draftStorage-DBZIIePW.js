@@ -1,0 +1,1 @@
+const r="kardit_customer_draft_v1";function a(t){sessionStorage.setItem(r,JSON.stringify(t))}function n(){try{const t=sessionStorage.getItem(r);return t?JSON.parse(t):null}catch{return null}}function e(){return"CUST-2026-"+String(346+Math.floor(Math.random()*50)).padStart(5,"0")}export{e as g,n as r,a as s};

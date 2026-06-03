@@ -10,10 +10,6 @@ const Solutions = lazy(() => import('./pages/Solutions'))
 const Industries = lazy(() => import('./pages/Industries'))
 const Partners = lazy(() => import('./pages/Partners'))
 const Contact = lazy(() => import('./pages/Contact'))
-const KarditWebsite = lazy(() => import('./pages/KarditWebsite'))
-const KarditWebsite2 = lazy(() => import('./pages/KarditWebsite2'))
-const KarditWebsite3 = lazy(() => import('./pages/KarditWebsite3'))
-const ChamsSwitchWebsite = lazy(() => import('./pages/ChamsSwitchWebsite'))
 const SignIn = lazy(() => import('./pages/SignIn'))
 
 // Portal shells
@@ -101,10 +97,6 @@ export default function App() {
           <Route path="/industries" element={<Industries />} />
           <Route path="/partners" element={<Partners />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/kardit" element={<KarditWebsite />} />
-          <Route path="/kardit-v2" element={<KarditWebsite2 />} />
-          <Route path="/kardit-v3" element={<KarditWebsite3 />} />
-          <Route path="/chamsswitch" element={<ChamsSwitchWebsite />} />
         </Route>
         <Route path="/signin" element={<SignIn />} />
         <Route
